@@ -1,5 +1,5 @@
-import React, { useRef } from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, StatusBar } from 'react-native'
+import React from 'react'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Modal } from 'react-native'
 import useForm from '../hooks/useForm'
 
 const LoginForm = () => {
@@ -10,6 +10,8 @@ const LoginForm = () => {
 
     let passwordInput = null
 
+    const alertMessage = `We don't need to press Login Button to submit`
+
     const onSubmit = values => {
         console.log(values)
     }
@@ -18,9 +20,6 @@ const LoginForm = () => {
 
     return (
         <View style={styles.inputContainer}>
-            <StatusBar 
-                barStyle='light-content'
-            />
             <TextInput 
                 style={styles.input}
                 value={inputs.user}
@@ -34,19 +33,19 @@ const LoginForm = () => {
                 keyboardType='email-address'
             />
             <TextInput 
-                autoCapitalize='none'
+                secureTextEntry
                 returnKeyType="go"
                 value={inputs.password}
-                secureTextEntry
                 onChangeText={subscribe('password')}
                 style={styles.input}
                 placeholder='Password'
                 placeholderTextColor='rgba(255,255,255,0.6)'
                 ref={(input) => passwordInput = input}
+                onSubmitEditing={() => Alert.alert('Submitting',`${alertMessage}`)}
             />
             <TouchableOpacity 
                 style={styles.buttonContainer}
-                onPress={handleSubmit}
+                onPress={() => Alert.alert('Thanks for your interest')}
                 >
                 <Text style={styles.buttonText}>LOGIN</Text>
             </TouchableOpacity>
